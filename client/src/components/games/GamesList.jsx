@@ -25,7 +25,7 @@ class GamesList extends PureComponent {
     return (<Card key={game.id} className="game-card">
       <CardContent>
         <Typography color="textSecondary">
-          This game is played by&nbsp;
+          This game is hosted by&nbsp;
           {
             game.players
               .map(player => users[player.userId].firstName)

@@ -20,20 +20,6 @@ class GameDetails extends PureComponent {
 
   joinGame = () => this.props.joinGame(this.props.game.id)
 
-  // makeMove = (toRow, toCell) => {
-  //   const {game, updateGame} = this.props
-
-  //   const board = game.board.map(
-  //     (row, rowIndex) => row.map((cell, cellIndex) => {
-  //       if (rowIndex === toRow && cellIndex === toCell) return game.turn
-  //       else return cell
-  //     })
-  //   )
-  //   updateGame(game.id, board)
-  // }
-
-
-
   render() {
     console.log('gamedetails props', this.props)
     console.log('gamedetails state', this.state)
@@ -83,11 +69,13 @@ class GameDetails extends PureComponent {
 
         <hr />
 
-        {
+        {/* {
           game.status !== 'pending' &&
           <CanvasArtist />
           
-        }
+        } */}
+        <CanvasArtist />
+        <CanvasGuess />
       </Paper>)
   }
 }
