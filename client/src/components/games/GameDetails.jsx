@@ -6,7 +6,7 @@ import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
 import Paper from '@material-ui/core/Paper'
 import './GameDetails.css'
-import CanvasGuess from '../canvas/CanvasGuess';
+import CanvasArtist from '../canvas/CanvasArtist'
 
 class GameDetails extends PureComponent {
 
@@ -76,7 +76,7 @@ class GameDetails extends PureComponent {
 
       {
         game.status !== 'pending' &&
-        <CanvasGuess board={game.board} makeMove={this.makeMove} />
+        <CanvasArtist />
         
       }
     </Paper>)
