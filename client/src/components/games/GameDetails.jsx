@@ -5,9 +5,8 @@ import {getGames, joinGame, updateGame} from '../../actions/games'
 import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
 import Paper from '@material-ui/core/Paper'
-import Board from './Board'
 import './GameDetails.css'
-//import CanvasContainer from '../canvas/CanvasContainer';
+import CanvasDraw from 'react-canvas-draw'
 
 class GameDetails extends PureComponent {
 
@@ -20,6 +19,7 @@ class GameDetails extends PureComponent {
 
   joinGame = () => this.props.joinGame(this.props.game.id)
 
+  //take a guess
   makeMove = (toRow, toCell) => {
     const {game, updateGame} = this.props
 
@@ -76,7 +76,7 @@ class GameDetails extends PureComponent {
 
       {
         game.status !== 'pending' &&
-        <Board board={game.board} makeMove={this.makeMove} />
+        <CanvasDraw board={game.board} makeMove={this.makeMove} />
       }
     </Paper>)
   }
