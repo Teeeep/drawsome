@@ -6,7 +6,7 @@ import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
 import Paper from '@material-ui/core/Paper'
 import './GameDetails.css'
-import CanvasGuess from '../canvas/CanvasGuess';
+import CanvasArtist from '../canvas/CanvasArtist'
 
 class GameDetails extends PureComponent {
 
@@ -19,22 +19,22 @@ class GameDetails extends PureComponent {
 
   joinGame = () => this.props.joinGame(this.props.game.id)
 
-  //take a guess
-  makeMove = (toRow, toCell) => {
-    const {game, updateGame} = this.props
+  // makeMove = (toRow, toCell) => {
+  //   const {game, updateGame} = this.props
 
-    const board = game.board.map(
-      (row, rowIndex) => row.map((cell, cellIndex) => {
-        if (rowIndex === toRow && cellIndex === toCell) return game.turn
-        else return cell
-      })
-    )
-    updateGame(game.id, board)
-  }
+  //   const board = game.board.map(
+  //     (row, rowIndex) => row.map((cell, cellIndex) => {
+  //       if (rowIndex === toRow && cellIndex === toCell) return game.turn
+  //       else return cell
+  //     })
+  //   )
+  //   updateGame(game.id, board)
+  // }
 
 
 
   render() {
+    
     const {game, users, authenticated, userId} = this.props
 
     if (!authenticated) return (
@@ -76,7 +76,7 @@ class GameDetails extends PureComponent {
 
       {
         game.status !== 'pending' &&
-        <CanvasGuess board={game.board} makeMove={this.makeMove} />
+        <CanvasArtist />
         
       }
     </Paper>)
