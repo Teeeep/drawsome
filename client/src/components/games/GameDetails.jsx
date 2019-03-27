@@ -7,6 +7,7 @@ import {userId} from '../../jwt'
 import Paper from '@material-ui/core/Paper'
 import './GameDetails.css'
 import CanvasArtist from '../canvas/CanvasArtist'
+import CanvasGuess from '../canvas/CanvasGuess';
 
 class GameDetails extends PureComponent {
 
@@ -66,6 +67,7 @@ class GameDetails extends PureComponent {
           game.status === 'started' &&
           player && player.symbol === game.turn &&
           <div>It's your turn!</div>
+
         }
 
         {
