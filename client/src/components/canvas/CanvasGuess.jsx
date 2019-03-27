@@ -5,7 +5,11 @@ export default class CanvasGuess extends PureComponent {
 
     render() {
         return (
-            <CanvasDraw style={{ margin: '0 auto' }} />
+            <CanvasDraw style={{ margin: '0 auto' }} 
+                        immediateLoading={true}
+                        hideGrid
+                        ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
+                        saveData={this.props.canvasDisplay}/>
         )
     }
 }
