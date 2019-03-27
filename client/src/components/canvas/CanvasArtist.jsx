@@ -11,7 +11,7 @@ class CanvasArtist extends PureComponent {
         background: '#fff'
     }
 
-    handleChangeComplete = (color) => {
+    handleChangeColor = (color) => {
         this.setState({ color : color.hex })
     }
 
@@ -21,9 +21,13 @@ class CanvasArtist extends PureComponent {
         return (
             <div id='colors'>
                 <CanvasDraw 
+                    canvasWidth={400}
+                    canvasHeight={400}
                     brushColor={this.state.color}
-                    onChangeComplete={this.handleChangeComplete}/>
-                <CirclePicker />
+                    brushRadius={6}
+                    lazyRadius={0}
+                    />
+                <CirclePicker onChangeComplete={this.handleChangeColor}/>
             </div>
             
         )
