@@ -29,6 +29,7 @@ const joinGameSuccess = () => ({
 
 
 export const getGames = () => (dispatch, getState) => {
+  console.log(getState())
   const state = getState()
   if (!state.currentUser) return null
   const jwt = state.currentUser.jwt
@@ -43,6 +44,7 @@ export const getGames = () => (dispatch, getState) => {
 }
 
 export const joinGame = (gameId) => (dispatch, getState) => {
+  console.log('joinGame', getState)
   const state = getState()
   const jwt = state.currentUser.jwt
 
@@ -68,7 +70,8 @@ export const createGame = () => (dispatch, getState) => {
     .catch(err => console.error(err))
 }
 
-export const updateGame = (gameId, board) => (dispatch, getState) => {
+export const updateGame = (gameId, drawing) => (dispatch, getState) => {
+  console.log('game id!!!!!!!!!!!!!!',gameId)
   const state = getState()
   const jwt = state.currentUser.jwt
 
@@ -77,7 +80,7 @@ export const updateGame = (gameId, board) => (dispatch, getState) => {
   request
     .patch(`${baseUrl}/games/${gameId}`)
     .set('Authorization', `Bearer ${jwt}`)
-    .send({ board })
+    .send({ drawing })
     .then(_ => dispatch(updateGameSuccess()))
     .catch(err => console.error(err))
 }

@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper'
 import './GameDetails.css'
 import CanvasArtist from '../canvas/CanvasArtist'
 import CanvasGuess from '../canvas/CanvasGuess';
+import Button from '@material-ui/core/Button'
 
 class GameDetails extends PureComponent {
 
@@ -51,21 +52,18 @@ class GameDetails extends PureComponent {
 
         {
           game.status === 'started' &&
-          player && player.symbol === game.turn &&
-          <div>It's your turn!</div>
-
+          player && player.symbol === game.turn
         }
-
-        {
-          game.status === 'pending' &&
-          game.players.map(p => p.userId).indexOf(userId) === -1 &&
-          <button onClick={this.joinGame}>Join Game</button>
-        }
-
-        {
-          winner &&
-          <p>Winner: {users[winner].firstName}</p>
-        }
+          <ul>
+            {game.players
+              .map(player =>
+                <li key={users[player.userId].id}>{users[player.userId].firstName}</li>)}
+          </ul>
+          <Button onClick={this.joinGame}
+                  color="primary"
+                  variant="contained"
+                  className='join-game'        
+                          >Join Game</Button>
 
         <hr />
 
@@ -74,8 +72,8 @@ class GameDetails extends PureComponent {
           <CanvasArtist />
           
         } */}
-        <CanvasArtist />
-        <CanvasGuess />
+        <CanvasArtist gameId={this.props.match.params.id}/>
+        <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} />
       </Paper>)
   }
 }
