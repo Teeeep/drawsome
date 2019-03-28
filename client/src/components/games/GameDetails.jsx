@@ -6,7 +6,8 @@ import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
 import Paper from '@material-ui/core/Paper'
 import './GameDetails.css'
-import CanvasDraw from 'react-canvas-draw'
+import CanvasArtist from '../canvas/CanvasArtist'
+import CanvasGuess from '../canvas/CanvasGuess';
 
 class GameDetails extends PureComponent {
 
@@ -19,66 +20,63 @@ class GameDetails extends PureComponent {
 
   joinGame = () => this.props.joinGame(this.props.game.id)
 
-  //take a guess
-  makeMove = (toRow, toCell) => {
-    const {game, updateGame} = this.props
-
-    const board = game.board.map(
-      (row, rowIndex) => row.map((cell, cellIndex) => {
-        if (rowIndex === toRow && cellIndex === toCell) return game.turn
-        else return cell
-      })
-    )
-    updateGame(game.id, board)
-  }
-
-
-
   render() {
+    console.log('gamedetails props', this.props)
+    console.log('gamedetails state', this.state)
+
     const {game, users, authenticated, userId} = this.props
 
+    // if not authenticated redirect to loginpage
     if (!authenticated) return (
 			<Redirect to="/login" />
 		)
-
+    // if no game and no users display "loading" on screen
     if (game === null || users === null) return 'Loading...'
+
+    // if no game display "not found" on screen
     if (!game) return 'Not found'
 
     const player = game.players.find(p => p.userId === userId)
 
+    //change code to determine winner
     const winner = game.players
       .filter(p => p.symbol === game.winner)
       .map(p => p.userId)[0]
 
-    return (<Paper className="outer-paper">
-      <h1>Game #{game.id}</h1>
+    return (
+      <Paper className="outer-paper">
+        <h1>Game #{game.id}</h1>
 
-      <p>Status: {game.status}</p>
+        <p>Status: {game.status}</p>
 
-      {
-        game.status === 'started' &&
-        player && player.symbol === game.turn &&
-        <div>It's your turn!</div>
-      }
+        {
+          game.status === 'started' &&
+          player && player.symbol === game.turn &&
+          <div>It's your turn!</div>
 
-      {
-        game.status === 'pending' &&
-        game.players.map(p => p.userId).indexOf(userId) === -1 &&
-        <button onClick={this.joinGame}>Join Game</button>
-      }
+        }
 
-      {
-        winner &&
-        <p>Winner: {users[winner].firstName}</p>
-      }
+        {
+          game.status === 'pending' &&
+          game.players.map(p => p.userId).indexOf(userId) === -1 &&
+          <button onClick={this.joinGame}>Join Game</button>
+        }
 
-      <hr />
+        {
+          winner &&
+          <p>Winner: {users[winner].firstName}</p>
+        }
 
-      {
-        game.status !== 'pending' &&
-        <CanvasDraw board={game.board} makeMove={this.makeMove} />
-      }
-    </Paper>)
+        <hr />
+
+        {/* {
+          game.status !== 'pending' &&
+          <CanvasArtist />
+          
+        } */}
+        <CanvasArtist />
+        <CanvasGuess />
+      </Paper>)
   }
 }
 
