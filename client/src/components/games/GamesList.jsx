@@ -32,12 +32,15 @@ class GamesList extends PureComponent {
           Status: {game.status}
         </Typography>
         <Typography color="textPrimary">
+        <h2>Gamehost:</h2>
+        
+        </Typography>
+        <Typography color="textPrimary">
           <h2>Players:</h2>
           <ul>
             {game.players
               .map(player => 
                 <li key={users[player.userId].id}>{users[player.userId].firstName}</li>)}
-              
           </ul>
         </Typography>
         
