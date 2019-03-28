@@ -6,6 +6,7 @@ export default class CanvasGuess extends PureComponent {
 
 
     render() {
+        
         return (
             <CanvasDraw style={{ display: 'flex', border:'1px solid' ,margin: '0 auto' }} 
                         immediateLoading={true}
