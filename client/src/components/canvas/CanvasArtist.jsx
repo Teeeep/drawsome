@@ -1,54 +1,89 @@
-import React, {PureComponent} from 'react'
+import React, { PureComponent } from 'react'
 import CanvasDraw from 'react-canvas-draw'
-import { CirclePicker } from 'react-color'
+import { SwatchesPicker } from 'react-color'
 import { connect } from 'react-redux'
-
+import { updateGame } from '../../actions/games'
+import Scoreboard from '../scoreboard/Scoreboard';
 
 class CanvasArtist extends PureComponent {
 
     state = {
         color: "",
         background: '#fff',
-        drawing: "",
-        ref: ""
+        //ref: null
     }
 
     handleChangeColor = (color) => {
         this.setState({ color : color.hex })
     }
 
+    //updateDrawing = () => {
+        // const data = this.state.ref.lines
+        // // const {ref} = this.state
+        // // const data = ref.getSaveData()
+        // console.log('data', data)
+        // return updateGame(data)
+    //}
+
     updateDrawing = () => {
-        console.log('hoi', this.state.ref)
-        if(this.state.ref !== "") return this.setState({ref: "canvasDraw"})
-        // const {ref} = this.state
-        // const data = ref.getSaveData()
-        // console.log('update artist data', data)
+        console.log('M update drawing', this.props)
+        const { games, updateGame } = this.props
+        localStorage.setItem(
+            "savedDrawing", this.saveableCanvas.getSaveData()
+        )
+        const drawing = localStorage.getItem("savedDrawing")
+        updateGame(games.id, drawing)
     }
 
-
-
     render() {
-        console.log('canvasArtist State',this.state)
-        console.log('canvasArtist Props',this.props)
-    
+        //console.log('canvasArtist State',this.state)
+        //console.log('canvasArtist Props',this.props)
+
         return (
-            <div id='colors' onClick={this.updateDrawing}>
-                <CirclePicker   onChangeComplete={this.handleChangeColor}
-                                style={{ display: 'flex', border:'1px solid' ,margin: '0 auto' }} />
+            <div id='canvas' onClick={this.updateDrawing}>
+
+                <div>
                 <CanvasDraw 
                     id='canvasdraw'
-                    style={{ display: 'flex', border:'1px solid' ,margin: '0 auto' }} 
-                    ref={canvasDraw => {
+                    style={{    display: 'flex', 
+                                border:'1px solid' ,
+                                margin: '0 auto' }} 
+
+                    ref={canvasDraw => (this.saveableCanvas = canvasDraw)
+                        // canvasDraw => { 
                         // if(this.state.ref !== null) return
                         // this.setState({ ref: canvasDraw })
-                    }}
-                    canvasWidth={200}
-                    canvasHeight={200}
+                        //}
+                    }
+                    canvasWidth={500}
+                    canvasHeight={300}
                     brushColor={this.state.color}
                     brushRadius={6}
                     lazyRadius={0}
                     />
-                    
+                </div>   
+
+                <div>
+                <SwatchesPicker onChangeComplete={this.handleChangeColor}
+                                style={{    display: 'flex', 
+                                            border:'1px solid' ,
+                                            margin: '0 auto',
+                                            height: 300,
+                                            width: 500
+                                            }} />    
+                <button onClick={() => { this.saveableCanvas.clear() }} >
+                    Clear
+                </button>
+                <button
+                        onClick={() => { this.saveableCanvas.undo() }} >
+                    Undo
+                </button>
+                </div>
+
+                <div>
+                    <Scoreboard />
+                </div>
+                
             </div>
             
         )
@@ -56,7 +91,11 @@ class CanvasArtist extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-    games: state.games 
+    games: state.games,
 })
 
-export default connect(mapStateToProps)(CanvasArtist)
+const mapDispatchToProps ={
+    updateGame
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CanvasArtist)
