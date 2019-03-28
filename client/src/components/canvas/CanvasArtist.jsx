@@ -27,13 +27,15 @@ class CanvasArtist extends PureComponent {
     //}
 
     updateDrawing = () => {
-        console.log('M update drawing', this.props)
-        const { games, updateGame } = this.props
+        console.log('props update drawing', this.props)
+        console.log('state update drawing', this.state)
+        const { updateGame } = this.props //games,
         localStorage.setItem(
             "savedDrawing", this.saveableCanvas.getSaveData()
         )
         const drawing = localStorage.getItem("savedDrawing")
         updateGame(this.state.gameId, drawing)
+
         console.log('drawing updatedrawing', drawing)
         console.log('this state gameId',this.state.gameId)
 
@@ -43,8 +45,8 @@ class CanvasArtist extends PureComponent {
     }
 
     render() {
-        //console.log('canvasArtist State',this.state)
-        //console.log('canvasArtist Props',this.props)
+        console.log('canvasArtist State',this.state)
+        console.log('canvasArtist Props',this.props)
         
         return (
             <div id='canvas' onClick={this.updateDrawing}>
