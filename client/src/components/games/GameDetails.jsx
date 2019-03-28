@@ -10,6 +10,7 @@ import CanvasArtist from '../canvas/CanvasArtist'
 import CanvasGuess from '../canvas/CanvasGuess';
 import Scoreboard from '../scoreboard/Scoreboard';
 import Button from '@material-ui/core/Button'
+import Timer from 'react-compound-timer'
 
 
 class GameDetails extends PureComponent {
@@ -47,37 +48,50 @@ class GameDetails extends PureComponent {
       .map(p => p.userId)[0]
 
     return (
-      <Paper className="outer-paper">
-        <h1>Game #{game.id}</h1>
+      <div>
+        <div><Scoreboard /></div>
+        <div><Paper className="outer-paper">
+          <h1>Game #{game.id}</h1>
 
-        <p>Status: {game.status}</p>
+          <p>Status: {game.status}</p>
 
-        {
-          game.status === 'started' &&
-          player && player.symbol === game.turn
-        }
-          <ul>
-            {game.players
-              .map(player =>
-                <li key={users[player.userId].id}>{users[player.userId].firstName}</li>)}
-          </ul>
-          <Button onClick={this.joinGame}
-                  color="primary"
-                  variant="contained"
-                  className='join-game'        
-                          >Join Game</Button>
+          <Timer  initialTime={60000}
+                  direction="backward"
+                  // startImmediately={false}
+                  >
+                  {() => (
+                    <React.Fragment>
+                        <Timer.Seconds /> seconds
+                    </React.Fragment>
+                )}
+          </Timer>
 
-        <hr />
+          {
+            game.status === 'started' &&
+            player && player.symbol === game.turn
+          }
+            <ul>
+              {game.players
+                .map(player =>
+                  <li key={users[player.userId].id}>{users[player.userId].firstName}</li>)}
+            </ul>
+            <Button onClick={this.joinGame}
+                    color="primary"
+                    variant="contained"
+                    className='join-game'        
+                            >Join Game</Button>
 
-        {/* {
-          game.status !== 'pending' &&
-          <CanvasArtist />
-          
-        } */}
-        <CanvasArtist gameId={this.props.match.params.id}/>
-        <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} />
-        <Scoreboard />
-      </Paper>)
+          <hr />
+
+          {/* {
+            game.status !== 'pending' &&
+            <CanvasArtist />
+            
+          } */}
+          <CanvasArtist gameId={this.props.match.params.id}/>
+          <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} />
+        </Paper></div>
+      </div>)
   }
 }
 
