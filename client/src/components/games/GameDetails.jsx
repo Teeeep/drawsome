@@ -8,7 +8,9 @@ import Paper from '@material-ui/core/Paper'
 import './GameDetails.css'
 import CanvasArtist from '../canvas/CanvasArtist'
 import CanvasGuess from '../canvas/CanvasGuess';
+import Scoreboard from '../scoreboard/Scoreboard';
 import Button from '@material-ui/core/Button'
+
 
 class GameDetails extends PureComponent {
 
@@ -74,6 +76,7 @@ class GameDetails extends PureComponent {
         } */}
         <CanvasArtist gameId={this.props.match.params.id}/>
         <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} />
+        <Scoreboard />
       </Paper>)
   }
 }

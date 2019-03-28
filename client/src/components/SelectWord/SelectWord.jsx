@@ -1,4 +1,3 @@
-import { connect } from "net";
 
 const words = [
     "cat", "ghost", "cow", "bug", "snake", 
@@ -13,14 +12,16 @@ const words = [
     "boy", "girl", "house", "bed", "house", "bed", "shirt", 
     "egg", "cheese", "circle", "spider web"]
 
-const additions = ["happy", "sad", "angry", "flabbergasted", 
-"confused", "shocked", "traumatized", "scared", "frightened", 
-"disgusted", "calm", "jealous", "weeping"  ]    
-
-function draw () {
+function selectWord () {
     const randomNumber = Math.floor(Math.random() * words.length)
     const word = words[randomNumber]
     return word
 }
 
+
+//console.log(selectWord())
+
+//const additions = ["happy", "sad", "angry", "flabbergasted", 
+//"confused", "shocked", "traumatized", "scared", "frightened", 
+//"disgusted", "calm", "jealous", "weeping"  ]    
 
