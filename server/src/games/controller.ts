@@ -54,7 +54,7 @@ export default class GameController {
     if (!game) throw new BadRequestError(`Game does not exist`)
     if (game.status !== 'waiting for players') throw new BadRequestError(`Game is already started`)
 
-    game.status = 'started'
+    game.status = 'waiting for players'
     await game.save()
 
     const player = await Player.create({
@@ -87,7 +87,7 @@ export default class GameController {
     const player = await Player.findOne({ user, game })
 
     if (!player) throw new ForbiddenError(`You are not part of this game`)
-    if (game.status !== 'started') throw new BadRequestError(`The game is not started yet`)
+    // if (game.status !== 'started') throw new BadRequestError(`The game is not started yet`)
     // if (player.symbol !== game.turn) throw new BadRequestError(`It's not your turn`)
     // if (!isValidTransition(player.symbol, game.board, update.board)) {
     //   throw new BadRequestError(`Invalid move`)
@@ -108,9 +108,11 @@ export default class GameController {
     console.log('hello',update.drawing)
     await game.save()
     
+    const drawing = JSON.parse(update.drawing)
+
     io.emit('action', {
       type: 'UPDATE_GAME',
-      payload: { ...game, drawing: update.drawing } // update.drawing
+      payload: { ...game, drawing } // update.drawing
     })
 
     return game

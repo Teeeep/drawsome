@@ -74,8 +74,13 @@ class GameDetails extends PureComponent {
           <CanvasArtist />
           
         } */}
+<<<<<<< HEAD
         <CanvasArtist gameId={this.props.match.params.id} drawing={game.drawing}/>
         <CanvasGuess gameId={this.props.match.params.id} drawing={game.drawing}/>
+=======
+        <CanvasArtist gameId={this.props.match.params.id}/>
+        <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} />
+>>>>>>> de7bc25e96925197ba08eab9a622c7a07a48ae1f
       </Paper>)
   }
 }
