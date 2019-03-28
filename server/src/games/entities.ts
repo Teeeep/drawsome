@@ -5,7 +5,7 @@ import User from '../users/entity'
 // export type Row = [ Symbol | null, Symbol | null, Symbol | null ]
 // export type Board = [ Row, Row, Row ]
 
-type Status = 'pending' | 'started' | 'finished'
+type Status = 'waiting for players' | 'started' | 'finished'
 
 // const emptyRow: Row = [null, null, null]
 // const emptyBoard: Board = [ emptyRow, emptyRow, emptyRow ]
@@ -25,7 +25,7 @@ export class Game extends BaseEntity {
   // @Column('char', {length:1, nullable: true})
   // winner: Symbol
 
-  @Column('text', {default: 'pending'})
+  @Column('text', {default: 'waiting for players'})
   status: Status
 
   // this is a relation, read more about them here:
@@ -35,7 +35,7 @@ export class Game extends BaseEntity {
 }
 
 @Entity()
-@Index(['game', 'user', 'symbol'], {unique:true})
+@Index(['game', 'user'], {unique:true})
 export class Player extends BaseEntity {
 
   @PrimaryGeneratedColumn()
@@ -47,8 +47,8 @@ export class Player extends BaseEntity {
   @ManyToOne(_ => Game, game => game.players)
   game: Game
 
-  @Column('char', {length: 1})
-  symbol: Symbol
+  @Column('integer', { default: 0})
+  score: number
 
   @Column('integer', { name: 'user_id' })
   userId: number
