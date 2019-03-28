@@ -6,7 +6,7 @@ class CanvasGuess extends PureComponent {
     
 
     render() {
-        console.log('props en state:', this.props, this.state, this.refs)
+        console.log('guess canvas props:', this.props)
         return (
             <CanvasDraw style={{ display: 'flex', border:'1px solid' ,margin: '0 auto' }} 
                         immediateLoading={true}
@@ -14,7 +14,7 @@ class CanvasGuess extends PureComponent {
                         canvasWidth={200}
                         canvasHeight={200}
                         ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
-                        saveData={localStorage.getItem("savedDrawing")}
+                        saveData={JSON.stringify(this.props.canvas)}
             />
         )
     }
