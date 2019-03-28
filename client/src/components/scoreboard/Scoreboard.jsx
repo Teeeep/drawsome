@@ -4,7 +4,7 @@ import React, {Component} from "react"
 
 export default class Scoreboard extends Component {
     state = {
-        players: []
+        players: [] //this.props.game.players.id
     }
 
     addPlayer = (name) => {
