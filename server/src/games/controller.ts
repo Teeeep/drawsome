@@ -30,7 +30,7 @@ export default class GameController {
     await Player.create({
       game: entity, 
       user,
-      symbol: 'x'
+      score: 0
     }).save()
 
     const game = await Game.findOneById(entity.id)
@@ -52,7 +52,7 @@ export default class GameController {
   ) {
     const game = await Game.findOneById(gameId)
     if (!game) throw new BadRequestError(`Game does not exist`)
-    if (game.status !== 'pending') throw new BadRequestError(`Game is already started`)
+    if (game.status !== 'waiting for players') throw new BadRequestError(`Game is already started`)
 
     game.status = 'started'
     await game.save()
@@ -60,7 +60,7 @@ export default class GameController {
     const player = await Player.create({
       game, 
       user,
-      symbol: 'o'
+      score:0
     }).save()
 
     io.emit('action', {

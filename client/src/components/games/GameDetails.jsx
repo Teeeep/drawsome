@@ -39,9 +39,9 @@ class GameDetails extends PureComponent {
     const player = game.players.find(p => p.userId === userId)
 
     //change code to determine winner
-    // const winner = game.players
-    //   .filter(p => p.symbol === game.winner)
-    //   .map(p => p.userId)[0]
+    const winner = game.players
+      .filter(p => p.symbol === game.winner)
+      .map(p => p.userId)[0]
 
     return (
       <Paper className="outer-paper">
@@ -62,10 +62,10 @@ class GameDetails extends PureComponent {
           <button onClick={this.joinGame}>Join Game</button>
         }
 
-        {/* {
+        {
           winner &&
           <p>Winner: {users[winner].firstName}</p>
-        } */}
+        }
 
         <hr />
 

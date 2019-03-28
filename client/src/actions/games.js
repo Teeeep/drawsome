@@ -29,6 +29,7 @@ const joinGameSuccess = () => ({
 
 
 export const getGames = () => (dispatch, getState) => {
+  console.log(getState())
   const state = getState()
   if (!state.currentUser) return null
   const jwt = state.currentUser.jwt
@@ -43,6 +44,7 @@ export const getGames = () => (dispatch, getState) => {
 }
 
 export const joinGame = (gameId) => (dispatch, getState) => {
+  console.log('joinGame', getState)
   const state = getState()
   const jwt = state.currentUser.jwt
 

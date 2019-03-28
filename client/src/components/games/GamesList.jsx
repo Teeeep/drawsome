@@ -43,8 +43,8 @@ class GamesList extends PureComponent {
       <CardActions>
         <Button
           size="small"
-          onClick={() => joinGame()}
-        >
+          // onClick={joinGame(game.id)}
+          onClick={() => history.push(`/games/${game.id}`)}>
           Join game
         </Button>
       </CardActions>
