@@ -93,13 +93,11 @@ class CanvasArtist extends PureComponent {
                 </div>
                 
             </div>
-            
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-    
     games: state.games,
     
 })
