@@ -10,7 +10,6 @@ class CanvasArtist extends PureComponent {
     state = {
         color: "",
         background: '#fff',
-        gameId: 25
         //ref: null
     }
 
@@ -29,15 +28,15 @@ class CanvasArtist extends PureComponent {
     updateDrawing = () => {
         console.log('props update drawing', this.props)
         console.log('state update drawing', this.state)
-        const { updateGame } = this.props //games,
+        const { games, updateGame } = this.props //games,
         localStorage.setItem(
             "savedDrawing", this.saveableCanvas.getSaveData()
         )
         const drawing = localStorage.getItem("savedDrawing")
-        updateGame(this.state.gameId, drawing)
+        updateGame(this.props.gameId, drawing)
 
         console.log('drawing updatedrawing', drawing)
-        console.log('this state gameId',this.state.gameId)
+        console.log('this state gameId',this.gameId)
 
 
         //console.log('games updatedrawing', games[1])
@@ -100,7 +99,9 @@ class CanvasArtist extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-    games: state.games
+    
+    games: state.games,
+    
 })
 
 const mapDispatchToProps ={
