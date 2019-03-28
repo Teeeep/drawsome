@@ -25,27 +25,29 @@ class GamesList extends PureComponent {
 
     return (<Card key={game.id} className="game-card">
       <CardContent>
-        <Typography color="textSecondary">
-          This game is hosted by&nbsp;
-          {
-            game.players
-              .map(player => users[player.userId].firstName)
-              .join(' and ')
-          }
-        </Typography>
         <Typography variant="headline" component="h2">
           Game #{game.id}
         </Typography>
         <Typography color="textSecondary">
           Status: {game.status}
         </Typography>
+        <Typography color="textPrimary">
+          <h2>Players:</h2>
+          <ul>
+            {game.players
+              .map(player => 
+                <li key={users[player.userId].id}>{users[player.userId].firstName}</li>)}
+              
+          </ul>
+        </Typography>
+        
       </CardContent>
       <CardActions>
         <Button
           size="small"
           // onClick={joinGame(game.id)}
           onClick={() => history.push(`/games/${game.id}`)}>
-          Join game
+          Enter game lobby 
         </Button>
       </CardActions>
     </Card>)
