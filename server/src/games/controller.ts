@@ -105,8 +105,8 @@ export default class GameController {
     //   game.turn = player.symbol === 'x' ? 'o' : 'x'
     // }
     // game.board = update.board
-    console.log('hello',update.drawing)
-    await game.save()
+    console.log('hello', update)
+    await Game.merge(game, update).save()
     
     const drawing = JSON.parse(update.drawing)
 
@@ -114,7 +114,7 @@ export default class GameController {
       type: 'UPDATE_GAME',
       payload: { ...game, drawing } // update.drawing
     })
-
+    console.log('lalalala')
     return game
   }
 
