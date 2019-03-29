@@ -1,6 +1,15 @@
-.outer-paper {
+.outer-paper{
   margin-top: 20px;
   margin: auto;
   padding: 20px;
   width: 60%;
+
 }
+
+.score-board {
+  margin-top: 20px;
+  margin: auto;
+  padding: 20px;
+  width: 40%;
+}
+

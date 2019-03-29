@@ -8,9 +8,14 @@ import Paper from '@material-ui/core/Paper'
 import './GameDetails.css'
 import CanvasArtist from '../canvas/CanvasArtist'
 import CanvasGuess from '../canvas/CanvasGuess';
-import Scoreboard from '../scoreboard/Scoreboard';
 import Button from '@material-ui/core/Button'
 import Timer from 'react-compound-timer'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Typography from '@material-ui/core/TableRow'
 
 
 class GameDetails extends PureComponent {
@@ -48,20 +53,41 @@ class GameDetails extends PureComponent {
 
     const player = game.players.find(p => p.userId === userId)
 
-    //change code to determine winner
-    // const winner = game.players
-    //   .filter(p => p.symbol === game.winner)
-    //   .map(p => p.userId)[0]
-
     return (
       <div>
-        <div><Scoreboard /></div>
+
+        <div className="score-board">
+        <Typography variant="h6" id="tableTitle" align="center">
+            Gameboard Dr. Awesome # {game.id}
+        </Typography>
+        <Typography variant="body1" id="tableSubTitle" align="left">
+          {game.status}
+        </Typography>
+        <Table >
+        <TableHead>
+          <TableRow>
+            <TableCell align="left">Username</TableCell>
+            <TableCell align="left">Score</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {game.players
+                .map(player => (
+                  <TableRow className={users[player.userId].firstName} key={users[player.userId].id}>
+                    <TableCell component="th" scope="row">{users[player.userId].firstName}</TableCell>
+                    <TableCell component="th" scope="row">{player.score}</TableCell>
+                  </TableRow>))}  
+        </TableBody>
+        </Table>
+        </div>
+
         <div><Paper className="outer-paper">
-          <h1>Game #{game.id}</h1>
+                
+          {/* <h1>Game #{game.id}</h1>
 
-          <p>Status: {game.status}</p>
+          <p>Status: {game.status}</p> */}
 
-          <Timer  initialTime={60000}
+          {/* <Timer  initialTime={60000}
                   direction="backward"
                   // startImmediately={false}
                   >
@@ -70,34 +96,20 @@ class GameDetails extends PureComponent {
                         <Timer.Seconds /> seconds
                     </React.Fragment>
                 )}
-          </Timer>
-
-          {
-            game.status === 'started' &&
-            player && player.symbol === game.turn
-          }
-            <ul>
-              {game.players
-                .map(player =>
-                  <li key={users[player.userId].id}>{users[player.userId].firstName}</li>)}
-            </ul>
+          </Timer> */}
             <Button onClick={this.joinGame}
                     color="primary"
                     variant="contained"
                     className='join-game'        
                             >Join Game</Button>
+
             <Button onClick={this.startGame}
                     color="primary"
                     variant="contained"
-                    className='join-game'
+                    className='start-game'
                             >Start Game</Button>
-          <hr />
 
-          {/* {
-            game.status !== 'pending' &&
-            <CanvasArtist />
-            
-          } */}
+          <hr />
           <CanvasArtist gameId={this.props.match.params.id}/>
           <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} />
         </Paper></div>
