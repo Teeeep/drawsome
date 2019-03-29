@@ -45,12 +45,13 @@ class GameDetails extends PureComponent {
     // if no game display "not found" on screen
     if (!game) return 'Not found'
 
-    const player = game.players.find(p => p.userId === userId)
+    //const player = game.players.find(p => p.userId === userId)
 
     return (
       <div>
 
         <div className="score-board">
+        <Paper className="gameboard-paper">
         <Typography variant="h6" id="tableTitle" align="center">
             Gameboard Dr. Awesome # {game.id}
         </Typography>
@@ -73,14 +74,11 @@ class GameDetails extends PureComponent {
                   </TableRow>))}  
         </TableBody>
         </Table>
+        </Paper>
         </div>
 
-        <div><Paper className="outer-paper">
-                
-          {/* <h1>Game #{game.id}</h1>
-
-          <p>Status: {game.status}</p> */}
-
+        <div>
+          <Paper className="outer-paper">
           {/* <Timer  initialTime={60000}
                   direction="backward"
                   // startImmediately={false}
@@ -97,9 +95,13 @@ class GameDetails extends PureComponent {
                     className='join-game'        
                             >Join Game</Button>
           <hr />
-          <CanvasArtist gameId={this.props.match.params.id}/>
-          <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} />
-        </Paper></div>
+            <Paper className="canvas-artist">
+              <CanvasArtist gameId={this.props.match.params.id}/>
+            </Paper>
+            
+            <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} className="canvas-guess"/>
+          </Paper>
+        </div>
       </div>)
   }
 }
@@ -116,23 +118,3 @@ const mapDispatchToProps = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameDetails)
-
-
-// <Card key={game.id} className="scoreboard-card">
-//           <CardContent>
-//             <Typography variant="headline" component="h2">
-//               Scoreboard 
-//               {/* Game #{game.id} */}
-//             </Typography>
-//             <Typography>
-//               <Typography variant="body1" gutterBottom align="left">
-//                 Player 
-//                 {/* {game.status} */}
-//               </Typography>
-//               <Typography variant="body1" gutterBottom align="right">
-//               {/* color="textPrimary" */}
-//                 Score
-//               </Typography>
-//               </Typography>  
-//           </CardContent>
-//          </Card> 
