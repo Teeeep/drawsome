@@ -62,10 +62,11 @@ class CanvasArtist extends PureComponent {
 
                 <div>
                 
-                <Button color="primary"
+                <Button className="clear-canvas"
+                        color="primary"
                         variant="contained"
-                        className="clear-canvas"
                         size="small"
+                        children=""
                         onClick={() => { this.saveableCanvas.clear() }} >
                     Clear
                 </Button>
@@ -74,6 +75,7 @@ class CanvasArtist extends PureComponent {
                         color="primary"
                         variant="contained"
                         size="small"
+                        children=""
                         onClick={() => { this.saveableCanvas.undo() }} >
                     Undo
                 </Button>
