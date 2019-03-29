@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import {getGames, joinGame, updateGame} from '../../actions/games'
+import {getGames, joinGame, updateGame, startGame} from '../../actions/games'
 import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
 import Paper from '@material-ui/core/Paper'
@@ -28,6 +28,12 @@ class GameDetails extends PureComponent {
   }
 
   joinGame = () => this.props.joinGame(this.props.game.id)
+
+  startGame = () => {
+    console.log('hoi')
+    this.props.startGame(this.props.game.id)
+    this.setState({status: "started"})
+  }
 
   render() {
     console.log('gamedetails props', this.props)
@@ -94,6 +100,13 @@ class GameDetails extends PureComponent {
                     variant="contained"
                     className='join-game'        
                             >Join Game</Button>
+
+            <Button onClick={this.startGame}
+                    color="primary"
+                    variant="contained"
+                    className='start-game'
+                            >Start Game</Button>
+
           <hr />
             <Paper className="canvas-artist">
               <CanvasArtist gameId={this.props.match.params.id}/>
@@ -114,7 +127,7 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = {
-  getGames, getUsers, joinGame, updateGame
+  getGames, getUsers, joinGame, updateGame, startGame
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameDetails)
