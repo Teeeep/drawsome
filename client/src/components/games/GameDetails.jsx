@@ -8,8 +8,15 @@ import Paper from '@material-ui/core/Paper'
 import './GameDetails.css'
 import CanvasArtist from '../canvas/CanvasArtist'
 import CanvasGuess from '../canvas/CanvasGuess';
-import Scoreboard from '../scoreboard/Scoreboard';
 import Button from '@material-ui/core/Button'
+import Timer from 'react-compound-timer'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Typography from '@material-ui/core/TableRow'
+
 
 
 class GameDetails extends PureComponent {
@@ -39,45 +46,72 @@ class GameDetails extends PureComponent {
     // if no game display "not found" on screen
     if (!game) return 'Not found'
 
-    const player = game.players.find(p => p.userId === userId)
-
-    //change code to determine winner
-    const winner = game.players
-      .filter(p => p.symbol === game.winner)
-      .map(p => p.userId)[0]
+    //const player = game.players.find(p => p.userId === userId)
 
     return (
-      <Paper className="outer-paper">
-        <h1>Game #{game.id}</h1>
+      <div>
 
-        <p>Status: {game.status}</p>
+        <div className="score-board">
+        <Paper className="gameboard-paper">
+        <Typography variant="h6" id="tableTitle" align="center">
+            Gameboard Dr. Awesome # {game.id}
+        </Typography>
+        <Typography variant="body1" id="tableSubTitle" align="left">
+          {game.status}
+        </Typography>
+        <Table >
+        <TableHead>
+          <TableRow>
+            <TableCell align="left">Username</TableCell>
+            <TableCell align="left">Score</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {game.players
+                .map(player => (
+                  <TableRow className={users[player.userId].email} key={users[player.userId].id}>
+                    <TableCell component="th" scope="row">{users[player.userId].email}</TableCell>
+                    <TableCell component="th" scope="row">{player.score}</TableCell>
+                  </TableRow>))}  
+        </TableBody>
+        </Table>
+        </Paper>
+        </div>
 
-        {
-          game.status === 'started' &&
-          player && player.symbol === game.turn
-        }
-          <ul>
-            {game.players
-              .map(player =>
-                <li key={users[player.userId].id}>{users[player.userId].firstName}</li>)}
-          </ul>
-          <Button onClick={this.joinGame}
-                  color="primary"
-                  variant="contained"
-                  className='join-game'        
-                          >Join Game</Button>
+        <div>
+          <Paper className="outer-paper">
+          {/* <Timer  initialTime={60000}
+                  direction="backward"
+                  // startImmediately={false}
+                  >
+                  {() => (
+                    <React.Fragment>
+                        <Timer.Seconds /> seconds
+                    </React.Fragment>
+                )}
+          </Timer> */}
+            <Button onClick={this.joinGame}
+                    color="primary"
+                    variant="contained"
+                    className='join-game'        
+                            >Join Game</Button>
 
-        <hr />
+            <Button onClick={this.startGame}
+                    color="primary"
+                    variant="contained"
+                    className='start-game'
+                            >Start Game</Button>
 
-        {/* {
-          game.status !== 'pending' &&
-          <CanvasArtist />
-          
-        } */}
-        <CanvasArtist gameId={this.props.match.params.id}/>
-        <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} />
-        <Scoreboard />
-      </Paper>)
+          <hr />
+            <Paper className="canvas-artist">
+              <CanvasArtist gameId={this.props.match.params.id}/>
+            </Paper>
+            
+            <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} className="canvas-guess"/>
+          </Paper>
+        </div>
+      </div>)
+
   }
 }
 

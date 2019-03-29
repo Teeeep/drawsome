@@ -1,5 +1,5 @@
-import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Index, OneToMany, ManyToOne } from 'typeorm'
-import User from '../users/entity'
+import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Index, OneToMany, JoinColumn, OneToOne } from 'typeorm'
+import Player from './players'
 
 // export type Symbol = 'x' | 'o'
 // export type Row = [ Symbol | null, Symbol | null, Symbol | null ]
@@ -11,7 +11,7 @@ type Status = 'waiting for players' | 'started' | 'finished'
 // const emptyBoard: Board = [ emptyRow, emptyRow, emptyRow ]
 
 @Entity()
-export class Game extends BaseEntity {
+export default class Game extends BaseEntity {
 
   @PrimaryGeneratedColumn()
   id?: number
@@ -32,24 +32,8 @@ export class Game extends BaseEntity {
   // http://typeorm.io/#/many-to-one-one-to-many-relations
   @OneToMany(_ => Player, player => player.game, {eager:true})
   players: Player[]
-}
 
-@Entity()
-@Index(['game', 'user'], {unique:true})
-export class Player extends BaseEntity {
-
-  @PrimaryGeneratedColumn()
-  id?: number
-
-  @ManyToOne(_ => User, user => user.players)
-  user: User
-
-  @ManyToOne(_ => Game, game => game.players)
-  game: Game
-
-  @Column('integer', { default: 0})
-  score: number
-
-  @Column('integer', { name: 'user_id' })
-  userId: number
+  @OneToOne(_ => Player, { eager: true, nullable: true })
+  @JoinColumn()
+  artist: Player
 }
