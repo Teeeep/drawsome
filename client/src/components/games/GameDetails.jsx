@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import {getGames, joinGame, updateGame} from '../../actions/games'
+import {getGames, joinGame, updateGame, startGame} from '../../actions/games'
 import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
 import Paper from '@material-ui/core/Paper'
@@ -10,6 +10,7 @@ import CanvasArtist from '../canvas/CanvasArtist'
 import CanvasGuess from '../canvas/CanvasGuess';
 import Scoreboard from '../scoreboard/Scoreboard';
 import Button from '@material-ui/core/Button'
+import Timer from 'react-compound-timer'
 
 
 class GameDetails extends PureComponent {
@@ -22,6 +23,12 @@ class GameDetails extends PureComponent {
   }
 
   joinGame = () => this.props.joinGame(this.props.game.id)
+
+  startGame = () => {
+    console.log('hoi')
+    this.props.startGame(this.props.game.id)
+    this.setState({status: "started"})
+  }
 
   render() {
     console.log('gamedetails props', this.props)
@@ -42,42 +49,59 @@ class GameDetails extends PureComponent {
     const player = game.players.find(p => p.userId === userId)
 
     //change code to determine winner
-    const winner = game.players
-      .filter(p => p.symbol === game.winner)
-      .map(p => p.userId)[0]
+    // const winner = game.players
+    //   .filter(p => p.symbol === game.winner)
+    //   .map(p => p.userId)[0]
 
     return (
-      <Paper className="outer-paper">
-        <h1>Game #{game.id}</h1>
+      <div>
+        <div><Scoreboard /></div>
+        <div><Paper className="outer-paper">
+          <h1>Game #{game.id}</h1>
 
-        <p>Status: {game.status}</p>
+          <p>Status: {game.status}</p>
 
-        {
-          game.status === 'started' &&
-          player && player.symbol === game.turn
-        }
-          <ul>
-            {game.players
-              .map(player =>
-                <li key={users[player.userId].id}>{users[player.userId].firstName}</li>)}
-          </ul>
-          <Button onClick={this.joinGame}
-                  color="primary"
-                  variant="contained"
-                  className='join-game'        
-                          >Join Game</Button>
+          <Timer  initialTime={60000}
+                  direction="backward"
+                  // startImmediately={false}
+                  >
+                  {() => (
+                    <React.Fragment>
+                        <Timer.Seconds /> seconds
+                    </React.Fragment>
+                )}
+          </Timer>
 
-        <hr />
+          {
+            game.status === 'started' &&
+            player && player.symbol === game.turn
+          }
+            <ul>
+              {game.players
+                .map(player =>
+                  <li key={users[player.userId].id}>{users[player.userId].firstName}</li>)}
+            </ul>
+            <Button onClick={this.joinGame}
+                    color="primary"
+                    variant="contained"
+                    className='join-game'        
+                            >Join Game</Button>
+            <Button onClick={this.startGame}
+                    color="primary"
+                    variant="contained"
+                    className='join-game'
+                            >Start Game</Button>
+          <hr />
 
-        {/* {
-          game.status !== 'pending' &&
-          <CanvasArtist />
-          
-        } */}
-        <CanvasArtist gameId={this.props.match.params.id}/>
-        <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} />
-        <Scoreboard />
-      </Paper>)
+          {/* {
+            game.status !== 'pending' &&
+            <CanvasArtist />
+            
+          } */}
+          <CanvasArtist gameId={this.props.match.params.id}/>
+          <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} />
+        </Paper></div>
+      </div>)
   }
 }
 
@@ -89,7 +113,7 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = {
-  getGames, getUsers, joinGame, updateGame
+  getGames, getUsers, joinGame, updateGame, startGame
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameDetails)

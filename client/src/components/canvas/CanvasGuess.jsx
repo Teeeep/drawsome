@@ -23,7 +23,7 @@ class CanvasGuess extends PureComponent {
                     />
                 </div>
                 <div>
-                    <Button></Button>
+                    <Button children=""></Button>
                 </div>
             </div>
         )

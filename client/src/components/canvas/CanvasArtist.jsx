@@ -10,8 +10,8 @@ class CanvasArtist extends PureComponent {
     state = {
         color: '',
         background: '#fff',
-        brushRadius: '6',
-        lazyRadius: '0'
+        brushRadius: 6,
+        lazyRadius: 0
     }
 
     handleChangeColor = (color) => {
@@ -38,6 +38,15 @@ class CanvasArtist extends PureComponent {
         
         return (
             <div id='canvas' onClick={this.updateDrawing}>
+                <div>
+                <GithubPicker onChangeComplete={this.handleChangeColor}
+                                style={{    display: 'flex', 
+                                            border:'1px solid' ,
+                                            margin: '0 auto',
+                                            height: 300,
+                                            width: 500
+                                            }} />    
+                </div>
 
                 <div>
                 <CanvasDraw id='canvasdraw'
@@ -52,25 +61,21 @@ class CanvasArtist extends PureComponent {
                 </div>   
 
                 <div>
-                <GithubPicker onChangeComplete={this.handleChangeColor}
-                                style={{    display: 'flex', 
-                                            border:'1px solid' ,
-                                            margin: '0 auto',
-                                            height: 300,
-                                            width: 500
-                                            }} />    
-                <Button color="primary"
+                
+                <Button className="clear-canvas"
+                        color="primary"
                         variant="contained"
-                        className="clear-canvas"
                         size="small"
+                        children=""
                         onClick={() => { this.saveableCanvas.clear() }} >
                     Clear
-                </Button><br/>
+                </Button>
                 
                 <Button className="undo"
                         color="primary"
                         variant="contained"
                         size="small"
+                        children=""
                         onClick={() => { this.saveableCanvas.undo() }} >
                     Undo
                 </Button>
