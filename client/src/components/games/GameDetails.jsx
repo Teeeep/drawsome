@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import {getGames, joinGame, updateGame, startGame} from '../../actions/games'
+import {getGames, joinGame, updateGame} from '../../actions/games'
 import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
 import Paper from '@material-ui/core/Paper'
@@ -18,6 +18,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/TableRow'
 
 
+
 class GameDetails extends PureComponent {
 
   componentWillMount() {
@@ -28,12 +29,6 @@ class GameDetails extends PureComponent {
   }
 
   joinGame = () => this.props.joinGame(this.props.game.id)
-
-  startGame = () => {
-    console.log('hoi')
-    this.props.startGame(this.props.game.id)
-    this.setState({status: "started"})
-  }
 
   render() {
     console.log('gamedetails props', this.props)
@@ -116,6 +111,7 @@ class GameDetails extends PureComponent {
           </Paper>
         </div>
       </div>)
+
   }
 }
 
@@ -127,7 +123,7 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = {
-  getGames, getUsers, joinGame, updateGame, startGame
+  getGames, getUsers, joinGame, updateGame
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameDetails)

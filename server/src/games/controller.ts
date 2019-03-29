@@ -92,6 +92,7 @@ export default class GameController {
 
     if (!player) throw new ForbiddenError(`You are not part of this game`)
 
+
     let newGame: any = game
     if (game.status == 'waiting for players') {
       console.log('hello', update)
@@ -122,6 +123,7 @@ export default class GameController {
 
       payload = { ...newGame, drawing }
     }
+
     
     console.log('payload test:', payload)
 
@@ -129,7 +131,9 @@ export default class GameController {
       type: 'UPDATE_GAME',
       payload // start game --> clients
     })
+
     return payload
+
   }
   // get A game based on ID 
   @Authorized()
