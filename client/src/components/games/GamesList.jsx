@@ -44,7 +44,6 @@ class GamesList extends PureComponent {
       </CardContent>
       <CardActions>
         <Button
-          children=""
           size="small"
           // onClick={joinGame(game.id)}
           onClick={() => history.push(`/games/${game.id}`)}>
@@ -66,7 +65,6 @@ class GamesList extends PureComponent {
     return (<Paper className="outer-paper">
       <Button
         color="primary"
-        children=""
         variant="contained"
         onClick={createGame}
         className="create-game"
