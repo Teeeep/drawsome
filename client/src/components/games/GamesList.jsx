@@ -34,9 +34,9 @@ class GamesList extends PureComponent {
         <Typography color="textPrimary">
           <h2>Players:</h2>
           <ul>
-            {game.players
+            {game && game.players && game.players
               .map(player => 
-                <li key={users[player.userId].id}>{users[player.userId].firstName}</li>)}
+                <li key={users[player.userId].id}>{users[player.userId].email}</li>)}
               
           </ul>
         </Typography>

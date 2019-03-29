@@ -74,8 +74,8 @@ class GameDetails extends PureComponent {
         <TableBody>
           {game.players
                 .map(player => (
-                  <TableRow className={users[player.userId].firstName} key={users[player.userId].id}>
-                    <TableCell component="th" scope="row">{users[player.userId].firstName}</TableCell>
+                  <TableRow className={users[player.userId].email} key={users[player.userId].id}>
+                    <TableCell component="th" scope="row">{users[player.userId].email}</TableCell>
                     <TableCell component="th" scope="row">{player.score}</TableCell>
                   </TableRow>))}  
         </TableBody>
