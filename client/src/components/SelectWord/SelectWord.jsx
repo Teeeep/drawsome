@@ -18,6 +18,10 @@ function selectWord () {
     return word
 }
 
+function selectMultipleWords () {
+    const random = Math.floor(Math.random() * words.length)
+}
+
 
 //console.log(selectWord())
 
