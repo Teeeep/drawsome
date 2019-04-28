@@ -4,12 +4,13 @@ import {Redirect} from 'react-router-dom'
 import {getGames, joinGame, updateGame} from '../../actions/games'
 import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
+import Card from '@material-ui/core/Card'
 import Paper from '@material-ui/core/Paper'
 import './GameDetails.css'
 import CanvasArtist from '../canvas/CanvasArtist'
 import CanvasGuess from '../canvas/CanvasGuess';
 import Button from '@material-ui/core/Button'
-import Timer from 'react-compound-timer'
+//import Timer from 'react-compound-timer'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -51,32 +52,32 @@ class GameDetails extends PureComponent {
     return (
       <div>
 
-        <div className="score-board">
-        <Paper className="gameboard-paper">
-        <Typography variant="h6" id="tableTitle" align="center">
-            Gameboard Dr. Awesome # {game.id}
-        </Typography>
-        <Typography variant="body1" id="tableSubTitle" align="left">
-          {game.status}
-        </Typography>
-        <Table >
-        <TableHead>
-          <TableRow>
-            <TableCell align="left">Username</TableCell>
-            <TableCell align="left">Score</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {game.players
-                .map(player => (
-                  <TableRow className={users[player.userId].email} key={users[player.userId].id}>
-                    <TableCell component="th" scope="row">{users[player.userId].email}</TableCell>
-                    <TableCell component="th" scope="row">{player.score}</TableCell>
-                  </TableRow>))}  
-        </TableBody>
-        </Table>
-        </Paper>
-        </div>
+        <Card key={game.id} className="score-board">
+          
+            <Typography variant="h6" id="tableTitle" align="center">
+                Gameboard Dr. Awesome # {game.id}
+            </Typography>
+            <Typography variant="body1" id="tableSubTitle" align="left">
+              {game.status}
+            </Typography>
+            <Table >
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left">Username</TableCell>
+                  <TableCell align="left">Score</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {game.players
+                      .map(player => (
+                        <TableRow className={users[player.userId].email} key={users[player.userId].id}>
+                          <TableCell component="th" scope="row">{users[player.userId].email}</TableCell>
+                          <TableCell component="th" scope="row">{player.score}</TableCell>
+                        </TableRow>))}  
+              </TableBody>
+            </Table>
+          
+        </Card>
 
         <div>
           <Paper className="outer-paper">
@@ -103,13 +104,14 @@ class GameDetails extends PureComponent {
                             >Start Game</Button>
 
           <hr />
-            <Paper className="canvas-artist">
-              <CanvasArtist gameId={this.props.match.params.id}/>
-            </Paper>
+            
+            <CanvasArtist gameId={this.props.match.params.id}/>
             
             <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} className="canvas-guess"/>
+
           </Paper>
         </div>
+
       </div>)
 
   }

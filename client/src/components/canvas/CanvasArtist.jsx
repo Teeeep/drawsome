@@ -10,8 +10,8 @@ class CanvasArtist extends PureComponent {
     state = {
         color: '',
         background: '#fff',
-        brushRadius: '6',
-        lazyRadius: '0'
+        brushRadius: 6,
+        lazyRadius: 0
     }
 
     handleChangeColor = (color) => {

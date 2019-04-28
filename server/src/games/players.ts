@@ -1,4 +1,4 @@
-import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Index, OneToMany, ManyToOne, OneToOne } from 'typeorm'
+import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Index, ManyToOne } from 'typeorm'
 import Game from './entities'
 import User from '../users/entity'
 
