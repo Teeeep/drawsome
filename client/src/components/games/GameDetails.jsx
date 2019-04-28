@@ -93,23 +93,23 @@ class GameDetails extends PureComponent {
                     </React.Fragment>
                 )}
           </Timer> */}
-            <Button onClick={this.joinGame}
+          {this.props.game.players.filter(player => player.userId === this.props.userId) && <Button onClick={this.joinGame}
                     color="primary"
                     variant="contained"
                     className='join-game'        
-                            >Join Game</Button>
+                            >Join Game</Button>}
 
-            <Button onClick={this.startGame}
+           {this.props.game.players.length === 2 && <Button onClick={this.startGame}
                     color="primary"
                     variant="contained"
                     className='start-game'
-                            >Start Game</Button>
+                            >Start Game</Button>}
 
           <hr />
             
-            <CanvasArtist gameId={this.props.match.params.id}/>
+            {this.props.game.artist.userId === this.props.userId && <CanvasArtist gameId={this.props.match.params.id}/>}
             
-            <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} className="canvas-guess"/>
+            {this.props.userId !== this.props.game.artist.userId && <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} className="canvas-guess"/>}
 
           </Paper>
         </div>
