@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import {getGames, joinGame, updateGame} from '../../actions/games'
+import {getGames, joinGame, updateGame, startGame} from '../../actions/games'
 import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
 import Card from '@material-ui/core/Card'
@@ -31,11 +31,13 @@ class GameDetails extends PureComponent {
 
   joinGame = () => this.props.joinGame(this.props.game.id)
 
+  startGame = () => this.props.startGame(this.props.game.id)
+
   render() {
     console.log('gamedetails props', this.props)
     console.log('gamedetails state', this.state)
 
-    const {game, users, authenticated, userId} = this.props
+    const {game, users, authenticated } = this.props
 
     // if not authenticated redirect to loginpage
     if (!authenticated) return (
@@ -62,10 +64,10 @@ class GameDetails extends PureComponent {
             </Typography>
             <Table >
               <TableHead>
-                <TableRow>
+                {/* <TableRow> */}
                   <TableCell align="left">Username</TableCell>
                   <TableCell align="left">Score</TableCell>
-                </TableRow>
+                {/* </TableRow> */}
               </TableHead>
               <TableBody>
                 {game.players
@@ -125,7 +127,7 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = {
-  getGames, getUsers, joinGame, updateGame
+  getGames, getUsers, joinGame, updateGame, startGame
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameDetails)

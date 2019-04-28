@@ -135,6 +135,7 @@ export default class GameController {
     return payload
 
   }
+  
   // get A game based on ID 
   @Authorized()
   @Get('/games/:id([0-9]+)')
