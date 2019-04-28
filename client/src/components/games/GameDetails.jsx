@@ -107,10 +107,16 @@ class GameDetails extends PureComponent {
             
         {this.props.game.status === 'started' && <div>               
             
-            {this.props.game.artist.userId === this.props.userId && <CanvasArtist gameId={this.props.match.params.id}/>}
+            {this.props.game.artist.userId === this.props.userId &&
+            <CanvasArtist gameId={this.props.match.params.id}/>
+            }
             
-            {this.props.userId !== this.props.game.artist.userId && <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} className="canvas-guess"/>}
+            {this.props.userId !== this.props.game.artist.userId && 
+            <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} className="canvas-guess"/>
+            }
+
             </div>}
+
           </Paper>
         </div>
 
