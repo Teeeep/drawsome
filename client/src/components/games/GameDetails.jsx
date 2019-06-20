@@ -93,13 +93,16 @@ class GameDetails extends PureComponent {
                     </React.Fragment>
                 )}
           </Timer> */}
-          {this.props.game.players.filter(player => player.userId !== this.props.userId) && <Button onClick={this.joinGame}
+          {this.props.game.players.filter(player => player.userId === this.props.userId) && this.props.game.status !== 'started' && 
+          <Button onClick={this.joinGame}
                     color="primary"
                     variant="contained"
                     className='join-game'        
                             >Join Game</Button>}
 
-           {this.props.game.players.length === 2 && <Button onClick={this.startGame}
+            {this.props.game.players.length === 2 && this.props.game.status !== 'started' &&
+           
+           <Button onClick={this.startGame}
                     color="primary"
                     variant="contained"
                     className='start-game'
