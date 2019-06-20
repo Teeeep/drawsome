@@ -36,7 +36,7 @@ class GamesList extends PureComponent {
           <ul>
             {game.players
               .map(player => 
-                <li key={users[player.userId].id}>{users[player.userId].firstName}</li>)}
+                <li key={users[player.userId].id}>{users[player.userId].email}</li>)}
               
           </ul>
         </Typography>
@@ -63,7 +63,7 @@ class GamesList extends PureComponent {
 
     if (games === null || users === null) return null
 
-    return (<Paper className="outer-paper">
+    return (<Paper className="outer-paper2">
       <Button
         color="primary"
         children=""
