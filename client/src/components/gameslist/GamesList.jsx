@@ -4,7 +4,6 @@ import {getUsers} from '../../actions/users'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import Button from '@material-ui/core/Button'
-import Paper from '@material-ui/core/Paper'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent'; 
@@ -32,21 +31,21 @@ class GamesList extends PureComponent {
           Status: {game.status}
         </Typography>
         <Typography color="textPrimary">
-          <h2>Players:</h2>
-          <ul>
-            {game.players
+          Players:
+            {game && game.players && game.players
               .map(player => 
                 <li key={users[player.userId].id}>{users[player.userId].email}</li>)}
+<<<<<<< HEAD:client/src/components/gameslist/GamesList.jsx
               
           </ul>
+=======
+>>>>>>> master:client/src/components/games/GamesList.jsx
         </Typography>
         
       </CardContent>
       <CardActions>
         <Button
-          children=""
           size="small"
-          // onClick={joinGame(game.id)}
           onClick={() => history.push(`/games/${game.id}`)}>
           Enter game lobby 
         </Button>
@@ -63,10 +62,13 @@ class GamesList extends PureComponent {
 
     if (games === null || users === null) return null
 
+<<<<<<< HEAD:client/src/components/gameslist/GamesList.jsx
     return (<Paper className="outer-paper2">
+=======
+    return (<div className="outer-paper">
+>>>>>>> master:client/src/components/games/GamesList.jsx
       <Button
         color="primary"
-        children=""
         variant="contained"
         onClick={createGame}
         className="create-game"
@@ -77,7 +79,7 @@ class GamesList extends PureComponent {
       <div>
         {games.map(game => this.renderGame(game))}
       </div>
-    </Paper>)
+    </div>)
   }
 }
 

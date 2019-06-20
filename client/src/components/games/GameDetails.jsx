@@ -4,18 +4,20 @@ import {Redirect} from 'react-router-dom'
 import {getGames, joinGame, updateGame, startGame} from '../../actions/games'
 import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
+import Card from '@material-ui/core/Card'
 import Paper from '@material-ui/core/Paper'
 import './GameDetails.css'
 import CanvasArtist from '../canvas/CanvasArtist'
 import CanvasGuess from '../canvas/CanvasGuess';
 import Button from '@material-ui/core/Button'
-import Timer from 'react-compound-timer'
+//import Timer from 'react-compound-timer'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/TableRow'
+
 
 
 class GameDetails extends PureComponent {
@@ -29,17 +31,13 @@ class GameDetails extends PureComponent {
 
   joinGame = () => this.props.joinGame(this.props.game.id)
 
-  startGame = () => {
-    console.log('hoi')
-    this.props.startGame(this.props.game.id)
-    this.setState({status: "started"})
-  }
+  startGame = () => this.props.startGame(this.props.game.id)
 
   render() {
     console.log('gamedetails props', this.props)
     console.log('gamedetails state', this.state)
 
-    const {game, users, authenticated, userId} = this.props
+    const {game, users, authenticated } = this.props
 
     // if not authenticated redirect to loginpage
     if (!authenticated) return (
@@ -56,6 +54,7 @@ class GameDetails extends PureComponent {
     return (
       <div>
 
+<<<<<<< HEAD
         <div className="score-board">
         <Paper className="gameboard-paper">
         <Typography variant="h6" id="tableTitle" align="center">
@@ -82,6 +81,34 @@ class GameDetails extends PureComponent {
         </Table>
         </Paper>
         </div>
+=======
+        <Card key={game.id} className="score-board">
+          
+            <Typography variant="h6" id="tableTitle" align="center">
+                Gameboard Dr. Awesome # {game.id}
+            </Typography>
+            <Typography variant="body1" id="tableSubTitle" align="left">
+              {game.status}
+            </Typography>
+            <Table >
+              <TableHead>
+                {/* <TableRow> */}
+                  <TableCell align="left">Username</TableCell>
+                  <TableCell align="left">Score</TableCell>
+                {/* </TableRow> */}
+              </TableHead>
+              <TableBody>
+                {game.players
+                      .map(player => (
+                        <TableRow className={users[player.userId].email} key={users[player.userId].id}>
+                          <TableCell component="th" scope="row">{users[player.userId].email}</TableCell>
+                          <TableCell component="th" scope="row">{player.score}</TableCell>
+                        </TableRow>))}  
+              </TableBody>
+            </Table>
+          
+        </Card>
+>>>>>>> master
 
         <div>
           <Paper className="outer-paper">
@@ -95,27 +122,35 @@ class GameDetails extends PureComponent {
                     </React.Fragment>
                 )}
           </Timer> */}
-            <Button onClick={this.joinGame}
+          {this.props.game.players.filter(player => player.userId !== this.props.userId) && <Button onClick={this.joinGame}
                     color="primary"
                     variant="contained"
                     className='join-game'        
-                            >Join Game</Button>
+                            >Join Game</Button>}
 
-            <Button onClick={this.startGame}
+           {this.props.game.players.length === 2 && <Button onClick={this.startGame}
                     color="primary"
                     variant="contained"
                     className='start-game'
-                            >Start Game</Button>
-
-          <hr />
-            <Paper className="canvas-artist">
-              <CanvasArtist gameId={this.props.match.params.id}/>
-            </Paper>
+                            >Start Game</Button>}
             
+        {this.props.game.status === 'started' && <div>               
+            
+            {this.props.game.artist.userId === this.props.userId &&
+            <CanvasArtist gameId={this.props.match.params.id}/>
+            }
+            
+            {this.props.userId !== this.props.game.artist.userId && 
             <CanvasGuess gameId={this.props.match.params.id} canvas={game.drawing} className="canvas-guess"/>
+            }
+
+            </div>}
+
           </Paper>
         </div>
+
       </div>)
+
   }
 }
 
