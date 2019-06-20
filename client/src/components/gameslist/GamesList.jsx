@@ -22,7 +22,7 @@ class GamesList extends PureComponent {
   renderGame = (game) => {
     const {users, history} = this.props
 
-    return (<div className='outer-paper2'><Card key={game.id} className="game-card">
+    return (<div><Card key={game.id} className="game-card">
       <CardContent>
         <Typography variant="headline" component="h2">
           Game #{game.id}
@@ -58,6 +58,7 @@ class GamesList extends PureComponent {
     if (games === null || users === null) return null
 
     return (<div>
+      <div className='buttoncontainer'>
       <Button
         color="primary"
         variant="contained"
@@ -66,10 +67,11 @@ class GamesList extends PureComponent {
       >
         Create Game
       </Button>
-
-      <div>
-        {games.map(game => this.renderGame(game))}
       </div>
+
+      <div className='cardcontainer'>
+        {games.map(game => this.renderGame(game))}
+      </div>)
     </div>)
   }
 }

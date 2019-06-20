@@ -5,15 +5,22 @@ h2 {
 
 .game-card {
   margin: 10px 10px 10px 0px;
-  float: center;
+  width: 60vw;
 }
 
 .create-game {
   margin: 10px;
+  float: center;
 }
 
-.outer-paper2 {
-  margin: 0 auto;
-  padding: 20px;
-  width: 80%;
+.cardcontainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.buttoncontainer {
+  display: flex;
+  justify-content: center;
+
 }
