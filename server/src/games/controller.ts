@@ -112,7 +112,6 @@ export default class GameController {
       payload = { ...newGame, drawing }
     }
 
-    
     console.log('payload test:', payload)
 
     io.emit('action', {
