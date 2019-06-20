@@ -5,15 +5,15 @@ h2 {
 
 .game-card {
   margin: 10px 10px 10px 0px;
+  float: center;
 }
 
 .create-game {
-  margin-top: 10px !important;
+  margin: 10px;
 }
 
 .outer-paper2 {
   margin: 0 auto;
   padding: 20px;
-  width: 40%;
-  float: center;
+  width: 80%;
 }

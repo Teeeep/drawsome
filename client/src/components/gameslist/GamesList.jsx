@@ -22,7 +22,7 @@ class GamesList extends PureComponent {
   renderGame = (game) => {
     const {users, history} = this.props
 
-    return (<Card key={game.id} className="game-card">
+    return (<div className='outer-paper2'><Card key={game.id} className="game-card">
       <CardContent>
         <Typography variant="headline" component="h2">
           Game #{game.id}
@@ -45,7 +45,7 @@ class GamesList extends PureComponent {
           Enter game lobby 
         </Button>
       </CardActions>
-    </Card>)
+    </Card></div>)
   }
 
   render() {
@@ -57,7 +57,7 @@ class GamesList extends PureComponent {
 
     if (games === null || users === null) return null
 
-    return (<div className="outer-paper">
+    return (<div>
       <Button
         color="primary"
         variant="contained"
