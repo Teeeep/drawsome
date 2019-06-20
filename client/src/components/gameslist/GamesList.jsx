@@ -35,11 +35,6 @@ class GamesList extends PureComponent {
             {game && game.players && game.players
               .map(player => 
                 <li key={users[player.userId].id}>{users[player.userId].email}</li>)}
-<<<<<<< HEAD:client/src/components/gameslist/GamesList.jsx
-              
-          </ul>
-=======
->>>>>>> master:client/src/components/games/GamesList.jsx
         </Typography>
         
       </CardContent>
@@ -62,11 +57,7 @@ class GamesList extends PureComponent {
 
     if (games === null || users === null) return null
 
-<<<<<<< HEAD:client/src/components/gameslist/GamesList.jsx
-    return (<Paper className="outer-paper2">
-=======
     return (<div className="outer-paper">
->>>>>>> master:client/src/components/games/GamesList.jsx
       <Button
         color="primary"
         variant="contained"

@@ -54,7 +54,6 @@ class GameDetails extends PureComponent {
     return (
       <div>
 
-<<<<<<< HEAD
         <div className="score-board">
         <Paper className="gameboard-paper">
         <Typography variant="h6" id="tableTitle" align="center">
@@ -81,34 +80,6 @@ class GameDetails extends PureComponent {
         </Table>
         </Paper>
         </div>
-=======
-        <Card key={game.id} className="score-board">
-          
-            <Typography variant="h6" id="tableTitle" align="center">
-                Gameboard Dr. Awesome # {game.id}
-            </Typography>
-            <Typography variant="body1" id="tableSubTitle" align="left">
-              {game.status}
-            </Typography>
-            <Table >
-              <TableHead>
-                {/* <TableRow> */}
-                  <TableCell align="left">Username</TableCell>
-                  <TableCell align="left">Score</TableCell>
-                {/* </TableRow> */}
-              </TableHead>
-              <TableBody>
-                {game.players
-                      .map(player => (
-                        <TableRow className={users[player.userId].email} key={users[player.userId].id}>
-                          <TableCell component="th" scope="row">{users[player.userId].email}</TableCell>
-                          <TableCell component="th" scope="row">{player.score}</TableCell>
-                        </TableRow>))}  
-              </TableBody>
-            </Table>
-          
-        </Card>
->>>>>>> master
 
         <div>
           <Paper className="outer-paper">
