@@ -20,6 +20,7 @@ class CanvasGuess extends PureComponent {
                             canvasHeight={300}
                             ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
                             saveData={JSON.stringify(this.props.canvas)}
+                            loadTimeOffset={0} 
                     />
                 </div>
                 <div>

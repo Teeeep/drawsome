@@ -10,7 +10,7 @@ class CanvasArtist extends PureComponent {
     state = {
         color: '',
         background: '#fff',
-        brushRadius: 6,
+        brushRadius: 3,
         lazyRadius: 0
     }
 
@@ -37,7 +37,7 @@ class CanvasArtist extends PureComponent {
         //console.log('canvasArtist Props',this.props)
         
         return (
-            <div id='canvas' onClick={this.updateDrawing}>
+            <div id='canvas' onPointerMove={this.updateDrawing}>
 
                 <div>
                 <CanvasDraw id='canvasdraw'
@@ -48,6 +48,7 @@ class CanvasArtist extends PureComponent {
                             brushColor={this.state.color}
                             brushRadius={this.state.brushRadius}
                             lazyRadius={this.state.lazyRadius}
+                            loadTimeOffset={0} 
                     />
                 </div>   
 
