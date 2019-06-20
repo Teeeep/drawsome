@@ -3,14 +3,9 @@ import {
   Body, Patch 
 } from 'routing-controllers'
 import User from '../users/entity'
-<<<<<<< HEAD
-import { Game, Player } from './entities'
-=======
-import Game from './entities' //, Board
+import Game from './entities' 
 import Player from './players'
-//import {IsBoard, isValidTransition, calculateWinner, finished} from './logic'
-//import { Validate } from 'class-validator'
->>>>>>> master
+
 import {io} from '../index'
 
 @JsonController()
@@ -84,11 +79,6 @@ export default class GameController {
     let payload: any = game
 
     if (!player) throw new ForbiddenError(`You are not part of this game`)
-<<<<<<< HEAD
-  
-    console.log('hello', update)
-    await Game.merge(game, update).save()
-=======
 
 
     let newGame: any = game
@@ -122,7 +112,6 @@ export default class GameController {
       payload = { ...newGame, drawing }
     }
 
->>>>>>> master
     
     console.log('payload test:', payload)
 
