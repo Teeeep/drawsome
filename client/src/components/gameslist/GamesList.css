@@ -11,9 +11,9 @@ h2 {
   margin-top: 10px !important;
 }
 
-.outer-paper {
-  margin: auto;
-  margin-top: 20px;
+.outer-paper2 {
+  margin: 0 auto;
   padding: 20px;
-  width: 60%;
+  width: 40%;
+  float: center;
 }

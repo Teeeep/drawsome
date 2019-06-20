@@ -3,19 +3,10 @@ import {
   Body, Patch 
 } from 'routing-controllers'
 import User from '../users/entity'
-import Game from './entities' //, Board
+import Game from './entities' 
 import Player from './players'
-//import {IsBoard, isValidTransition, calculateWinner, finished} from './logic'
-//import { Validate } from 'class-validator'
+
 import {io} from '../index'
-
-// class GameUpdate {
-
-  // @Validate(IsBoard, {
-  //   message: 'Not a valid board'
-  // })
-  // board: Board
-// }
 
 @JsonController()
 export default class GameController {
@@ -73,9 +64,6 @@ export default class GameController {
   }
 
   @Authorized()
-  // the reason that we're using patch here is because this request is not idempotent
-  // http://restcookbook.com/HTTP%20Methods/idempotency/
-  // try to fire the same requests twice, see what happens
   @Patch('/games/:id([0-9]+)')
   async updateGame(
     @CurrentUser() user: User,
